@@ -1,11 +1,5 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-  justify-items: center;
+  margin: 0;
 }
 
-.custom-navbar-brand {
-  justify-content: space-between;
-}
+@import "tailwindcss";
