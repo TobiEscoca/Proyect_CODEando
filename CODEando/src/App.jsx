@@ -3,6 +3,7 @@ import Nav from "./ui/Nav";
 import Hero from "./ui/Hero";
 import "./App.css";
 import Catalog from "./ui/Catalog";
+import Footer from "./ui/Footer";
 
 const App = () => {
   return (
@@ -30,7 +31,7 @@ const App = () => {
             available: false,
             price: 15999,
             image:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8gYzfVQrlLs3l2RWmAFP_tZCOIjZz3HmceQ&s",
+              "https://static.platzi.com/media/blog/nueva-version-nodejs-npm-41d0c683-dd57-4540-92f2-daff88ec661d.png",
           },
           {
             id: 3,
@@ -38,7 +39,7 @@ const App = () => {
             available: true,
             price: 15999,
             image:
-              "https://images.unsplash.com/photo-1667372393086-9d4001d51cf1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8amF2YXNjcmlwdHxlbnwwfHwwfHx8MA%3D%3D",
+              "https://bairesdev.mo.cloudinary.net/blog/2023/08/What-Is-JavaScript-Used-For.jpg",
           },
           {
             id: 4,
@@ -46,10 +47,11 @@ const App = () => {
             available: false,
             price: 10999,
             image:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLEgO_wDN7r5q8mBjasl2iMT30HVm4pBiqGg&s",
+              "https://www.mytecbits.com/wp-content/uploads/SQL.png",
           },
         ]}
       />
+      <Footer/>
     </div>
   );
 };
