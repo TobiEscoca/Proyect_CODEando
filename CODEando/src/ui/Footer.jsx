@@ -4,7 +4,7 @@ const Footer = () => {
         <footer className="bg-gray-900 w-full flex gap-10">
             <section className="flex-col ml-10">
                 <h1 className="text-3xl">CODEando</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa deserunt praesentium laudantium laboriosam maiores saepe.</p>
+                <p>Lorem ipsum dolor sit anet consectetur adipisicing elit. Culpa deserunt praesentium laudantium laboriosam maiores saepe.</p>
                 
             </section>
             <section className="flex-col ml-10">
