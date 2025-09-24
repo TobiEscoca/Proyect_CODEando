@@ -46,12 +46,27 @@ const App = () => {
             name: "Sql Básico",
             available: false,
             price: 10999,
+            image: "https://www.mytecbits.com/wp-content/uploads/SQL.png",
+          },
+          {
+            id: 5,
+            name: "Tailwind y UI Pro",
+            available: true,
+            price: 17999,
             image:
-              "https://www.mytecbits.com/wp-content/uploads/SQL.png",
+              "https://images.unsplash.com/photo-1526378722484-bd91ca387e72?q=80&w=1600&auto=format&fit=crop",
+          },
+          {
+            id: 6,
+            name: "React",
+            available: true,
+            price: 14999,
+            image:
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_0THFhuovUiQmDb-vBxAPHPziFSVBAnLFSg&s",
           },
         ]}
       />
-      <Footer/>
+      <Footer />
     </div>
   );
 };

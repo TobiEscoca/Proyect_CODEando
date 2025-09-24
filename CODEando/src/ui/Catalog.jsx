@@ -9,22 +9,6 @@ const sampleCourses = [
     image:
       "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1600&auto=format&fit=crop",
   },
-  {
-    id: 2,
-    name: "JavaScript Intermedio",
-    available: false,
-    price: 14999,
-    image:
-      "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1600&auto=format&fit=crop",
-  },
-  {
-    id: 3,
-    name: "Tailwind y UI Pro",
-    available: true,
-    price: 17999,
-    image:
-      "https://images.unsplash.com/photo-1526378722484-bd91ca387e72?q=80&w=1600&auto=format&fit=crop",
-  },
 ];
 
 const formatPrice = (value) =>
@@ -44,7 +28,7 @@ const Catalog = ({ courses = sampleCourses, title = "Catálogo de cursos" }) => 
           {courses.map((course) => (
             <article
               key={course.id}
-              className="overflow-hidden rounded-lg bg-white shadow hover:shadow-lg transition-shadow"
+              className="overflow-hidden rounded-lg bg-white trasition-all duration-300 hover:scale-105"
             >
               <div className="aspect-[16/9] w-full bg-gray-200">
                 <img
