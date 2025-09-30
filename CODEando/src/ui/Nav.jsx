@@ -49,19 +49,25 @@ export default function Nav() {
                   href="#"
                   className="block px-4 py-2 text-white hover:bg-gray-700"
                 >
-                  Categoría 1
+                  Frontend
                 </a>
                 <a
                   href="#"
                   className="block px-4 py-2 text-white hover:bg-gray-700"
                 >
-                  Categoría 2
+                  Backend
                 </a>
                 <a
                   href="#"
                   className="block px-4 py-2 text-white hover:bg-gray-700"
                 >
-                  Categoría 3
+                  Database
+                </a>
+                <a
+                  href="#"
+                  className="block px-4 py-2 text-white hover:bg-gray-700"
+                >
+                  Fullstack
                 </a>
               </div>
             )}

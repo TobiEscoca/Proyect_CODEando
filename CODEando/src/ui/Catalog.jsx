@@ -6,6 +6,7 @@ const sampleCourses = [
     name: "React desde Cero",
     available: true,
     price: 19999,
+    category: "Frontend",
     image:
       "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1600&auto=format&fit=crop",
   },
@@ -43,6 +44,9 @@ const Catalog = ({ courses = sampleCourses, title = "Catálogo de cursos" }) => 
                 <h3 className="text-lg font-semibold text-gray-900 line-clamp-2">
                   {course.name}
                 </h3>
+                <h4 className="text-sm font-semibold text-gray-900 line-clamp-2">
+                  {course.category}
+                </h4>
 
                 <div className="mt-2 flex items-center justify-between">
                   <span
