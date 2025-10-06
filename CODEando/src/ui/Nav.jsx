@@ -1,23 +1,25 @@
 import { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 
 export default function Nav() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <header className="bg-gray-900 w-full">
-      <nav className="flex items-center justify-between px-8 py-4">
+      <nav className="mx-auto max-w-7xl flex items-center justify-between px-4 md:px-8 py-3 md:py-4">
         {/* Izquierda: Logo y nombre */}
-        <div className="flex items-center gap-3">
+        <Link to="/" className="flex items-center gap-3 no-underline">
           <img
             src="/src/assets/Logo-Full-Cover-removebg.png"
             alt="Logo"
             className="h-10 w-auto"
           />
           <span className="text-white text-xl font-bold">CODEando</span>
-        </div>
+        </Link>
 
-        {/* Centro: Dropdown y enlaces */}
-        <div className="flex items-center gap-8">
+        {/* Centro: Dropdown y enlaces (desktop) */}
+        <div className="hidden md:flex items-center gap-8">
           <div className="relative">
             <button
               onClick={() => setDropdownOpen((v) => !v)}
@@ -45,63 +47,153 @@ export default function Nav() {
                 className="absolute left-0 mt-2 w-40 rounded-md bg-gray-800 shadow-lg z-20"
                 onMouseLeave={() => setDropdownOpen(false)}
               >
-                <a
-                  href="#"
+                <NavLink
+                  to="/"
                   className="block px-4 py-2 text-white hover:bg-gray-700"
+                  onClick={() => setDropdownOpen(false)}
                 >
                   Frontend
-                </a>
-                <a
-                  href="#"
+                </NavLink>
+                <NavLink
+                  to="/"
                   className="block px-4 py-2 text-white hover:bg-gray-700"
+                  onClick={() => setDropdownOpen(false)}
                 >
                   Backend
-                </a>
-                <a
-                  href="#"
+                </NavLink>
+                <NavLink
+                  to="/"
                   className="block px-4 py-2 text-white hover:bg-gray-700"
+                  onClick={() => setDropdownOpen(false)}
                 >
                   Database
-                </a>
-                <a
-                  href="#"
+                </NavLink>
+                <NavLink
+                  to="/"
                   className="block px-4 py-2 text-white hover:bg-gray-700"
+                  onClick={() => setDropdownOpen(false)}
                 >
                   Fullstack
-                </a>
+                </NavLink>
               </div>
             )}
           </div>
-          <a
-            href="#"
+          <NavLink
+            to="/ustedes"
             className="no-underline text-white font-semibold text-base hover:text-yellow-400 "
           >
             Ustedes
-          </a>
-          <a
-            href="#"
+          </NavLink>
+          <NavLink
+            to="/nosotros"
             className="no-underline text-white font-semibold text-base hover:text-yellow-400 "
           >
             Nosotros
-          </a>
-          <a
-            href="#"
+          </NavLink>
+          <NavLink
+            to="/ayuda"
             className="no-underline text-white font-semibold text-base hover:text-yellow-400 "
           >
             Ayuda
-          </a>
+          </NavLink>
         </div>
 
-        {/* Derecha: Botones */}
-        <div className="flex items-center gap-3">
-          <button className="px-4 py-2 border border-white text-white rounded hover:bg-white hover:text-gray-900 transition">
+        {/* Derecha: Botones (desktop) */}
+        <div className="hidden md:flex items-center gap-3">
+          <NavLink
+            to="/login"
+            className="px-4 py-2 border border-white text-white rounded hover:bg-white hover:text-gray-900 transition no-underline"
+          >
             Log in
-          </button>
-          <button className="px-4 py-2 bg-yellow-400 text-gray-900 rounded font-semibold hover:bg-yellow-300 transition">
+          </NavLink>
+          <NavLink
+            to="/register"
+            className="px-4 py-2 bg-yellow-400 text-gray-900 rounded font-semibold hover:bg-yellow-300 transition no-underline"
+          >
             Sign up
-          </button>
+          </NavLink>
         </div>
+
+        {/* Botón menú móvil */}
+        <button
+          className="md:hidden text-white p-2"
+          aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
+          onClick={() => setMobileOpen((v) => !v)}
+        >
+          {mobileOpen ? (
+            <svg
+              className="w-6 h-6"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          ) : (
+            <svg
+              className="w-6 h-6"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          )}
+        </button>
       </nav>
+
+      {/* Panel móvil */}
+      {mobileOpen && (
+        <div className="md:hidden bg-gray-900 border-t border-gray-800 px-4 py-3">
+          <div className="flex flex-col gap-2">
+            <NavLink
+              to="/ustedes"
+              className="text-white font-semibold no-underline py-2"
+              onClick={() => setMobileOpen(false)}
+            >
+              Ustedes
+            </NavLink>
+            <NavLink
+              to="/nosotros"
+              className="text-white font-semibold no-underline py-2"
+              onClick={() => setMobileOpen(false)}
+            >
+              Nosotros
+            </NavLink>
+            <NavLink
+              to="/ayuda"
+              className="text-white font-semibold no-underline py-2"
+              onClick={() => setMobileOpen(false)}
+            >
+              Ayuda
+            </NavLink>
+            <div className="h-px bg-gray-800 my-2" />
+            <NavLink
+              to="/login"
+              className="text-white no-underline py-2"
+              onClick={() => setMobileOpen(false)}
+            >
+              Log in
+            </NavLink>
+            <NavLink
+              to="/register"
+              className="no-underline py-2 text-gray-900 bg-yellow-400 rounded text-center font-semibold"
+              onClick={() => setMobileOpen(false)}
+            >
+              Sign up
+            </NavLink>
+          </div>
+        </div>
+      )}
     </header>
   );
 }

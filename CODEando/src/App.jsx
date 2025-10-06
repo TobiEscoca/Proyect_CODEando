@@ -1,22 +1,29 @@
 import React from "react";
 import Nav from "./ui/Nav";
-import Hero from "./ui/Hero";
-import "./App.css";
-import Catalog from "./ui/Catalog";
-import courses from "./data/courses";
 import Footer from "./ui/Footer";
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Nosotros from "./pages/Nosotros";
+import Ustedes from "./pages/Ustedes";
+import Ayuda from "./pages/Ayuda";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 const App = () => {
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
       <Nav />
-      <Hero
-        title="Dale un giro a tu carrera profesional"
-        subtitle="Aprende y emprende con CODEando"
-        backgroundImageUrl="/public/study_session.jpg"
-        heightClass="h-[80vh]"
-      />
-      <Catalog courses={courses} />
+      <main className="flex-1">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/nosotros" element={<Nosotros />} />
+          <Route path="/ustedes" element={<Ustedes />} />
+          <Route path="/ayuda" element={<Ayuda />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </main>
       <Footer />
     </div>
   );
