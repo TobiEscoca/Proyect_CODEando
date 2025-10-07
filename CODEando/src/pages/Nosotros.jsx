@@ -1,11 +1,11 @@
 import React from "react";
 import fotoNosotros from "../assets/Foto_nosotros.png";
 import fotoTobi from "../assets/foto_tobi.jpg";
-import fotoAgus from "../assets/foto_agus.jpg";
+import fotoAgus from "../assets/foto_agus2.png";
 
 const Nosotros = () => {
   return (
-    <div className="px-6 md:px-8 py-8 md:py-12 bg-gradient-to-r from-yellow-500 to-yellow-200">
+    <div className="px-6 md:px-8 py-8 md:py-13 bg-gradient-to-r from-yellow-500 to-yellow-200">
       <div className="mx-auto max-w-6xl flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-10">
         <img
           className="w-full md:w-1/2 h-auto rounded-lg object-cover"
@@ -42,7 +42,7 @@ const Nosotros = () => {
                 <img
                   className="rounded-lg w-20"
                   src={fotoAgus}
-                  alt="Foto de Tobi"
+                  alt="Foto de Agus"
                 />
               </div>
             </div>
