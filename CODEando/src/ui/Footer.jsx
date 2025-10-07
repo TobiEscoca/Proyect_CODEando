@@ -6,8 +6,8 @@ const Footer = () => {
           <section>
             <h1 className="text-2xl md:text-3xl text-white">CODEando</h1>
             <p className="text-gray-300 mt-2">
-              Lorem ipsum dolor sit anet consectetur adipisicing elit. Culpa
-              deserunt praesentium laudantium laboriosam maiores saepe.
+              Cursos online de programación para todos los niveles.
+              Aprendé las tecnologías más demandadas y potenciá tu futuro profesional.
             </p>
           </section>
           <section>
