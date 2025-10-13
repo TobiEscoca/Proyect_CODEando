@@ -80,19 +80,19 @@ export default function Nav() {
           </div>
           <NavLink
             to="/ustedes"
-            className="no-underline text-white font-semibold text-base hover:text-yellow-400 "
+            className="no-underline text-white font-semibold text-base hover:text-yellow-400 hover-underline-animation"
           >
             Ustedes
           </NavLink>
           <NavLink
             to="/nosotros"
-            className="no-underline text-white font-semibold text-base hover:text-yellow-400 "
+            className="no-underline text-white font-semibold text-base hover:text-yellow-400 hover-underline-animation"
           >
             Nosotros
           </NavLink>
           <NavLink
             to="/ayuda"
-            className="no-underline text-white font-semibold text-base hover:text-yellow-400 "
+            className="no-underline text-white font-semibold text-base hover:text-yellow-400 hover-underline-animation"
           >
             Ayuda
           </NavLink>
@@ -157,21 +157,21 @@ export default function Nav() {
           <div className="flex flex-col gap-2">
             <NavLink
               to="/ustedes"
-              className="text-white font-semibold no-underline py-2"
+              className="text-white font-semibold no-underline py-2 hover-underline-animation"
               onClick={() => setMobileOpen(false)}
             >
               Ustedes
             </NavLink>
             <NavLink
               to="/nosotros"
-              className="text-white font-semibold no-underline py-2"
+              className="text-white font-semibold no-underline py-2 hover-underline-animation"
               onClick={() => setMobileOpen(false)}
             >
               Nosotros
             </NavLink>
             <NavLink
               to="/ayuda"
-              className="text-white font-semibold no-underline py-2"
+              className="text-white font-semibold no-underline py-2 hover-underline-animation"
               onClick={() => setMobileOpen(false)}
             >
               Ayuda

@@ -2,12 +2,12 @@ const Footer = () => {
   return (
     <div>
       <footer className="bg-gray-900 w-full">
-        <div className="mx-auto max-w-7xl px-4 md:px-8 py-8 grid gap-10 md:grid-cols-2">
+        <div className="flex mx-auto max-w-7xl px-2 md:px-4 py-4 md:grid-cols- justify-between">
           <section>
             <h1 className="text-2xl md:text-3xl text-white">CODEando</h1>
             <p className="text-gray-300 mt-2">
-              Cursos online de programación para todos los niveles.
-              Aprendé las tecnologías más demandadas y potenciá tu futuro profesional.
+              Cursos online de programación para todos los niveles. Aprendé las
+              tecnologías más demandadas y potenciá tu futuro profesional.
             </p>
           </section>
           <section>

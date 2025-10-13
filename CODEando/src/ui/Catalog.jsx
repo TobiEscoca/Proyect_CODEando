@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const sampleCourses = [
   {
@@ -29,7 +30,7 @@ const Catalog = ({ courses = sampleCourses, title = "Catálogo de cursos" }) => 
           {courses.map((course) => (
             <article
               key={course.id}
-              className="overflow-hidden rounded-lg bg-white trasition-all duration-300 hover:scale-105"
+              className="overflow-hidden rounded-lg bg-white transition-all duration-300 hover:scale-105"
             >
               <div className="aspect-[16/9] w-full bg-gray-200">
                 <img
@@ -39,7 +40,6 @@ const Catalog = ({ courses = sampleCourses, title = "Catálogo de cursos" }) => 
                   loading="lazy"
                 />
               </div>
-
               <div className="p-4">
                 <h3 className="text-lg font-semibold text-gray-900 line-clamp-2">
                   {course.name}
@@ -60,6 +60,15 @@ const Catalog = ({ courses = sampleCourses, title = "Catálogo de cursos" }) => 
                   <span className="text-base font-bold text-gray-900">
                     {formatPrice(course.price)}
                   </span>
+                </div>
+
+                <div className="mt-4">
+                  <Link
+                    to={`/InfoCurso/${course.id}`}
+                    className="inline-block w-full text-center bg-indigo-700 text-white py-2 px-4 rounded hover:bg-indigo-900 transition-colors duration-200"
+                  >
+                    Ver detalles
+                  </Link>
                 </div>
               </div>
             </article>

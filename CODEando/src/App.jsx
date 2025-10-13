@@ -9,6 +9,7 @@ import Ustedes from "./pages/Ustedes";
 import Ayuda from "./pages/Ayuda";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import CursoInfo from "./pages/CursoInfo";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/ayuda" element={<Ayuda />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/InfoCurso/:courseId" element={<CursoInfo />} />
         </Routes>
       </main>
       <Footer />
