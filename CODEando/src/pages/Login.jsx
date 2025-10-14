@@ -37,7 +37,7 @@ const Login = () => {
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
     } else {
-      alert("✅ Inicio de sesión exitoso");
+      alert("Inicio de sesión exitoso");
       console.log("Datos enviados:", form);
     }
   };

@@ -181,14 +181,14 @@ export default function Nav() {
               className="text-white no-underline py-2"
               onClick={() => setMobileOpen(false)}
             >
-              Log in
+              Iniciar Sesion
             </NavLink>
             <NavLink
               to="/register"
               className="no-underline py-2 text-gray-900 bg-yellow-400 rounded text-center font-semibold"
               onClick={() => setMobileOpen(false)}
             >
-              Sign up
+              Registrarse
             </NavLink>
           </div>
         </div>
