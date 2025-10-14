@@ -24,7 +24,7 @@ const Footer = () => {
                 </svg>
               </a>
               <a
-                href="https://www.instagram.com/tobi.escoca/?hl=es-la"
+                href="https://www.instagram.com/"
                 target="_blank"
                 aria-label="git"
                 title="Ir al Instagram"
@@ -34,10 +34,10 @@ const Footer = () => {
                 </svg>
               </a>
               <a
-                href="https://vsco.co/tobiescoca/gallery"
+                href="https://x.com/"
                 target="_blank"
                 aria-label="git"
-                title="Ir al VSCO"
+                title="Ir al X (Twitter)"
               >
                 <svg className="w-6 h-6 fill-white hover:fill-gray-400">
                   <use xlinkHref="/sprite.svg#x" />
