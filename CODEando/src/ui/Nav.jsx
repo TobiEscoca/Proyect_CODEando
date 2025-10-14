@@ -23,7 +23,7 @@ export default function Nav() {
           <div className="relative">
             <button
               onClick={() => setDropdownOpen((v) => !v)}
-              className="flex items-center gap-1 text-white font-semibold text-base hover:text-yellow-400 focus:outline-none"
+              className="flex items-center gap-1 text-white font-semibold text-base hover:text-yellow-400 focus:outline-none cursor-pointer"
             >
               Categorías
               <svg
@@ -42,6 +42,7 @@ export default function Nav() {
                 />
               </svg>
             </button>
+
             {dropdownOpen && (
               <div
                 className="absolute left-0 mt-2 w-40 rounded-md bg-gray-800 shadow-lg z-20"
@@ -102,15 +103,13 @@ export default function Nav() {
         <div className="hidden md:flex items-center gap-3">
           <NavLink
             to="/login"
-            className="px-4 py-2 border border-white text-white rounded hover:bg-white hover:text-gray-900 transition no-underline"
-          >
-            Log in
+            className="px-6 py-2 rounded-lg font-semibold text-white border-2 border-white hover:bg-white hover:text-gray-900 transition-all duration-300 shadow-lg hover:shadow-white/30 cursor-pointer no-underline"
+            > Iniciar Sesión
           </NavLink>
           <NavLink
             to="/register"
-            className="px-4 py-2 bg-yellow-400 text-gray-900 rounded font-semibold hover:bg-yellow-300 transition no-underline"
-          >
-            Sign up
+            className="px-6 py-2 rounded-lg font-semibold text-gray-900 bg-yellow-400 hover:bg-yellow-300 border-2 border-yellow-400 hover:border-yellow-300 transition-all duration-300 shadow-lg hover:shadow-yellow-400/30 cursor-pointer no-underline"
+            > Registrarse
           </NavLink>
         </div>
 
