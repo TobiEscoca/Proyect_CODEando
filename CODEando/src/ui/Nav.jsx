@@ -80,16 +80,16 @@ export default function Nav() {
             )}
           </div>
           <NavLink
-            to="/ustedes"
-            className="no-underline text-white font-semibold text-base hover:text-yellow-400 hover-underline-animation"
-          >
-            Ustedes
-          </NavLink>
-          <NavLink
             to="/nosotros"
             className="no-underline text-white font-semibold text-base hover:text-yellow-400 hover-underline-animation"
           >
             Nosotros
+          </NavLink>
+          <NavLink
+            to="/ustedes"
+            className="no-underline text-white font-semibold text-base hover:text-yellow-400 hover-underline-animation"
+          >
+            Ustedes
           </NavLink>
           <NavLink
             to="/ayuda"

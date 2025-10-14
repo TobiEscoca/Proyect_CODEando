@@ -5,45 +5,82 @@ import fotoAgus from "../assets/foto_agus2.png";
 
 const Nosotros = () => {
   return (
-    <div className="px-6 md:px-8 py-8 md:py-13 bg-gradient-to-r from-yellow-500 to-yellow-200">
-      <div className="mx-auto max-w-6xl flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-10">
+    <div className="px-6 md:px-10 py-16 bg-gradient-to-b from-[#0f0f1a] to-[#1a1a2e] text-gray-200 min-h-screen">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
+        {/* Imagen principal */}
         <img
-          className="w-full md:w-1/2 h-auto rounded-lg object-cover"
+          className="w-full md:w-1/2 h-auto rounded-2xl shadow-lg shadow-yellow-500/10 border border-gray-700 object-cover"
           src={fotoNosotros}
           alt="Foto de nosotros"
         />
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-col gap-1 mt-0">
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">Nosotros</h1>
-            <p className="font-medium text-gray-900 max-w-3xl">
-              Somos CODEando, una comunidad enfocada en potenciar tu crecimiento
-              profesional a través del aprendizaje práctico y colaborativo.
+
+        {/* Texto principal */}
+        <div className="flex flex-col gap-6 md:w-1/2">
+          <div>
+            <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
+              Nosotros
+            </h1>
+            <p className="text-gray-400 leading-relaxed text-lg">
+              Somos <span className="text-yellow-400 font-semibold">CODEando</span>, 
+              una comunidad enfocada en potenciar tu crecimiento profesional 
+              a través del aprendizaje práctico, proyectos colaborativos y una 
+              red de apoyo constante entre desarrolladores.
             </p>
           </div>
-          <div className="gap-1">
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">
+
+          {/* Frase inspiradora */}
+          <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-2xl p-6 text-center shadow-md shadow-yellow-500/10">
+            <p className="italic text-gray-300 text-lg">
+              “Creemos en aprender creando, y en crear aprendiendo.”
+            </p>
+          </div>
+
+          {/* Desarrolladores */}
+          <div>
+            <h2 className="text-2xl font-semibold text-white mb-4">
               Desarrolladores
-            </h1>
-            <div className="flex gap-6 align-top">
-              <div className="flex-col">
-                <h2 className="text-xl font-bold text-gray-900 mb-4">
+            </h2>
+            <div className="flex flex-wrap gap-8">
+              {/* Tobi */}
+              <div className="flex flex-col items-center bg-gray-800/60 p-5 rounded-2xl border border-gray-700 shadow-md hover:shadow-lg hover:shadow-yellow-500/10 transition">
+                <a
+                  href="https://github.com/TobiEscoca"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    className="rounded-full w-24 h-24 object-cover mb-3 border-2 border-yellow-400/60 cursor-pointer"
+                    src={fotoTobi}
+                    alt="Foto de Tobías Escoca"
+                  />
+                </a>
+                <h3 className="text-xl font-bold text-yellow-400">
                   Tobías Escoca
-                </h2>
-                <img
-                  className="rounded-lg w-20"
-                  src={fotoTobi}
-                  alt="Foto de Tobi"
-                />
+                </h3>
+                <p className="text-gray-400 text-sm text-center">
+                  Desarrollador Full Stack
+                </p>
               </div>
-              <div className="flex-col">
-                <h2 className="text-xl font-bold text-gray-900 mb-4">
+
+              {/* Agus */}
+              <div className="flex flex-col items-center bg-gray-800/60 p-5 rounded-2xl border border-gray-700 shadow-md hover:shadow-lg hover:shadow-yellow-500/10 transition">
+                <a
+                  href="https://github.com/Agustin-Moran"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    className="rounded-full w-24 h-24 object-cover mb-3 border-2 border-yellow-400/60 cursor-pointer"
+                    src={fotoAgus}
+                    alt="Foto de Agustín Morán"
+                  />
+                </a>
+                <h3 className="text-xl font-bold text-yellow-400">
                   Agustín Morán
-                </h2>
-                <img
-                  className="rounded-lg w-20"
-                  src={fotoAgus}
-                  alt="Foto de Agus"
-                />
+                </h3>
+                <p className="text-gray-400 text-sm text-center">
+                  Desarrollador Full Stack
+                </p>
               </div>
             </div>
           </div>
