@@ -5,8 +5,8 @@ import fotoAgus from "../assets/foto_agus2.png";
 
 const Nosotros = () => {
   return (
-    <div className="px-6 md:px-10 py-16 bg-gradient-to-b from-[#0f0f1a] to-[#1a1a2e] text-gray-200 min-h-screen">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
+    <div className="flex-1 flex items-center justify-center bg-gradient-to-b from-[#0f0f1a] to-[#1a1a2e] text-gray-200">
+      <div className="w-full px-6 md:px-10 py-16 max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
         {/* Imagen principal */}
         <img
           className="w-full md:w-1/2 h-auto rounded-2xl shadow-lg shadow-yellow-500/10 border border-gray-700 object-cover"
@@ -21,10 +21,8 @@ const Nosotros = () => {
               Nosotros
             </h1>
             <p className="text-gray-400 leading-relaxed text-lg">
-              Somos <span className="text-yellow-400 font-semibold">CODEando</span>, 
-              una comunidad enfocada en potenciar tu crecimiento profesional 
-              a través del aprendizaje práctico, proyectos colaborativos y una 
-              red de apoyo constante entre desarrolladores.
+              Somos{" "}
+              <span className="text-yellow-400 font-semibold">CODEando</span>, una comunidad enfocada en potenciar tu crecimiento profesional a través del aprendizaje práctico, proyectos colaborativos y una red de apoyo constante entre desarrolladores.
             </p>
           </div>
 

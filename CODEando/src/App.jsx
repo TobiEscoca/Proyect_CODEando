@@ -18,7 +18,8 @@ const App = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Nav />
-      <main className="flex-1">
+      {/* Fondo unificado */}
+      <main className="flex-1 bg-gradient-to-b from-[#0f0f1a] to-[#1a1a2e]">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/nosotros" element={<Nosotros />} />
