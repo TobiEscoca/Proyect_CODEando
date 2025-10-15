@@ -109,22 +109,22 @@ const Ayuda = () => {
         {/* Recursos útiles */}
         <section className="bg-gray-800/60 border border-gray-700 rounded-2xl p-6 hover:shadow-lg hover:shadow-yellow-500/20 transition duration-300">
           <h2 className="text-2xl font-semibold text-white mb-4">
-            Recursos útiles
+            Recursos Útiles
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-400">
             <li>
               <a href="/terminos" className="text-yellow-400 hover:underline">
-                Términos y condiciones
+                Términos y Condiciones
               </a>
             </li>
             <li>
               <a href="/privacidad" className="text-yellow-400 hover:underline">
-                Política de privacidad
+                Política de Privacidad
               </a>
             </li>
             <li>
               <a href="/soporte" className="text-yellow-400 hover:underline">
-                Soporte técnico
+                Soporte Técnico
               </a>
             </li>
           </ul>
