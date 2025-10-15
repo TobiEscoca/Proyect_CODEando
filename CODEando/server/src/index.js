@@ -1,9 +1,19 @@
 import express from "express";
-const app = express();
 import { PORT } from "./config.js";
-import db from "../db.js";
+import { sequelize } from "../db.js";
 import coursesRoutes from "../routes/courses_routes.js";
 
-app.listen(PORT);
-app.use(coursesRoutes);
-console.log(`Server is running on port ${PORT}`);
+const app = express();
+
+import "../models/course.js";
+
+try {
+  app.listen(PORT);
+  app.use(coursesRoutes);
+
+  await sequelize.sync();
+
+  console.log(`Server is listening in port ${PORT}`);
+} catch (error) {
+  console.log(`An error has occurred`);
+}

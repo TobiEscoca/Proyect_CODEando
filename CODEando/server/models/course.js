@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../db.js";
 
-export const User = sequelize.define("users", {
+export const Course = sequelize.define("courses", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -12,12 +12,23 @@ export const User = sequelize.define("users", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  email: {
+  category: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true,
   },
-  password: {
+  available: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+  },
+  description: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  price: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  image: {
     type: DataTypes.STRING,
     allowNull: false,
   },

@@ -10,6 +10,9 @@ import Ayuda from "./pages/Ayuda";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import CursoInfo from "./pages/CursoInfo";
+import Terminos from "./pages/Terminos";
+import Privacidad from "./pages/Privacidad";
+import Soporte from "./pages/Soporte";
 
 const App = () => {
   return (
@@ -23,6 +26,9 @@ const App = () => {
           <Route path="/ayuda" element={<Ayuda />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/terminos" element={<Terminos />} />
+          <Route path="/privacidad" element={<Privacidad />} />
+          <Route path="/soporte" element={<Soporte />} />
           <Route path="/InfoCurso/:courseId" element={<CursoInfo />} />
         </Routes>
       </main>
