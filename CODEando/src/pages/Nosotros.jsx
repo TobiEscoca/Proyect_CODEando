@@ -1,7 +1,8 @@
 import React from "react";
 import fotoNosotros from "../assets/Foto_nosotros.png";
 import fotoTobi from "../assets/foto_tobi.jpg";
-import fotoAgus from "../assets/foto_agus2.png";
+import fotoAgus from "../assets/foto_agus.jpg";
+import fotoFranco from "../assets/fot_franco.jpg";
 
 const Nosotros = () => {
   return (
@@ -75,6 +76,27 @@ const Nosotros = () => {
                 </a>
                 <h3 className="text-xl font-bold text-yellow-400">
                   Agustín Morán
+                </h3>
+                <p className="text-gray-400 text-sm text-center">
+                  Desarrollador Full Stack
+                </p>
+              </div>
+
+              {/* Franco */}
+              <div className="flex flex-col items-center bg-gray-800/60 p-5 rounded-2xl border border-gray-700 shadow-md hover:shadow-lg hover:shadow-yellow-500/10 transition">
+                <a
+                  href="https://github.com/FrannGz"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    className="rounded-full w-24 h-24 object-cover mb-3 border-2 border-yellow-400/60 cursor-pointer"
+                    src={fotoFranco}
+                    alt="Foto de Franco Di Pangracio"
+                  />
+                </a>
+                <h3 className="text-xl font-bold text-yellow-400">
+                  Franco Di Pangracio
                 </h3>
                 <p className="text-gray-400 text-sm text-center">
                   Desarrollador Full Stack
