@@ -49,28 +49,28 @@ export default function Nav() {
                 onMouseLeave={() => setDropdownOpen(false)}
               >
                 <NavLink
-                  to="/"
+                  to="/category/Frontend"
                   className="block px-4 py-2 text-white hover:bg-gray-700"
                   onClick={() => setDropdownOpen(false)}
                 >
                   Frontend
                 </NavLink>
                 <NavLink
-                  to="/"
+                  to="/category/Backend"
                   className="block px-4 py-2 text-white hover:bg-gray-700"
                   onClick={() => setDropdownOpen(false)}
                 >
                   Backend
                 </NavLink>
                 <NavLink
-                  to="/"
+                  to="/category/Database"
                   className="block px-4 py-2 text-white hover:bg-gray-700"
                   onClick={() => setDropdownOpen(false)}
                 >
                   Database
                 </NavLink>
                 <NavLink
-                  to="/"
+                  to="/category/Fullstack"
                   className="block px-4 py-2 text-white hover:bg-gray-700"
                   onClick={() => setDropdownOpen(false)}
                 >

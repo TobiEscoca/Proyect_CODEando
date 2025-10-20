@@ -13,6 +13,7 @@ import CursoInfo from "./pages/CursoInfo";
 import Terminos from "./pages/Terminos";
 import Privacidad from "./pages/Privacidad";
 import Soporte from "./pages/Soporte";
+import FiltCourses from "./pages/FiltCourses";
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
           <Route path="/privacidad" element={<Privacidad />} />
           <Route path="/soporte" element={<Soporte />} />
           <Route path="/InfoCurso/:courseId" element={<CursoInfo />} />
+          <Route path="/category/:category" element={<FiltCourses />} />
         </Routes>
       </main>
       <Footer />
