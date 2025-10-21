@@ -1,17 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const sampleCourses = [
-  {
-    id: 1,
-    name: "React desde Cero",
-    available: true,
-    price: 19999,
-    category: "Frontend",
-    image:
-      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1600&auto=format&fit=crop",
-  },
-];
 
 const formatPrice = (value) =>
   new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS" }).format(

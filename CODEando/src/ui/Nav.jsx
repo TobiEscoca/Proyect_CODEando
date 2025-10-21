@@ -63,18 +63,18 @@ export default function Nav() {
                   Backend
                 </NavLink>
                 <NavLink
-                  to="/category/Database"
-                  className="block px-4 py-2 text-white hover:bg-gray-700"
-                  onClick={() => setDropdownOpen(false)}
-                >
-                  Database
-                </NavLink>
-                <NavLink
                   to="/category/Fullstack"
                   className="block px-4 py-2 text-white hover:bg-gray-700"
                   onClick={() => setDropdownOpen(false)}
                 >
                   Fullstack
+                </NavLink>
+                <NavLink
+                  to="/category/Database"
+                  className="block px-4 py-2 text-white hover:bg-gray-700"
+                  onClick={() => setDropdownOpen(false)}
+                >
+                  Database
                 </NavLink>
               </div>
             )}
