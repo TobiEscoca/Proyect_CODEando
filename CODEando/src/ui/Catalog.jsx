@@ -20,52 +20,53 @@ const formatPrice = (value) =>
 
 const Catalog = ({ courses = sampleCourses, title = "Catálogo de cursos" }) => {
   return (
-    <section className="w-full py-12 bg-gray-950">
+    <section className="w-full py-16 bg-gray-950 text-gray-100">
       <div className="max-w-6xl mx-auto px-6">
-        <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
+        <h2 className="text-3xl md:text-4xl font-extrabold text-center text-white mb-10 tracking-tight">
           {title}
         </h2>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
           {courses.map((course) => (
             <article
               key={course.id}
-              className="overflow-hidden rounded-lg bg-white transition-all duration-300 hover:scale-105"
+              className="overflow-hidden rounded-2xl bg-gray-900 border border-gray-800 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-yellow-400/20"
             >
-              <div className="aspect-[16/9] w-full bg-gray-200">
+              <div className="aspect-[16/9] w-full bg-gray-800">
                 <img
                   src={course.image}
                   alt={course.name}
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-cover transition-transform duration-300 hover:scale-110"
                   loading="lazy"
                 />
               </div>
-              <div className="p-4">
-                <h3 className="text-lg font-semibold text-gray-900 line-clamp-2">
+
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-white mb-1 line-clamp-2">
                   {course.name}
                 </h3>
-                <h4 className="text-sm font-semibold text-gray-900 line-clamp-2">
+                <h4 className="text-sm text-yellow-400 font-semibold mb-3 uppercase tracking-wide">
                   {course.category}
                 </h4>
 
                 <div className="mt-2 flex items-center justify-between">
                   <span
                     className={`text-sm font-medium ${
-                      course.available ? "text-green-600" : "text-red-600"
+                      course.available ? "text-green-400" : "text-red-500"
                     }`}
                   >
                     {course.available ? "Disponible" : "No disponible"}
                   </span>
 
-                  <span className="text-base font-bold text-gray-900">
+                  <span className="text-lg font-bold text-yellow-400 bg-yellow-400/10 px-3 py-1 rounded-md border border-yellow-400/20">
                     {formatPrice(course.price)}
                   </span>
                 </div>
 
-                <div className="mt-4">
+                <div className="mt-6">
                   <Link
                     to={`/InfoCurso/${course.id}`}
-                    className="inline-block w-full text-center bg-indigo-700 text-white py-2 px-4 rounded hover:bg-indigo-900 transition-colors duration-200"
+                    className="inline-block w-full text-center px-6 py-2 rounded-lg font-semibold text-gray-900 bg-yellow-400 hover:bg-yellow-300 border-2 border-yellow-400 hover:border-yellow-300 transition-all duration-300 shadow-lg hover:shadow-yellow-400/30 cursor-pointer"
                   >
                     Ver detalles
                   </Link>
