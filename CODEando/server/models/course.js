@@ -1,7 +1,7 @@
-import { DataTypes } from "sequelize";
+/* import { DataTypes } from "sequelize";
 import { sequelize } from "../db.js";
 
-export const Course = sequelize.define("courses", {
+export const Course = sequelize.define("courses", { */
   /* id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -34,4 +34,23 @@ export const Course = sequelize.define("courses", {
   }, */
 
   
+/* }); */
+
+import { DataTypes } from "sequelize";
+import { sequelize } from "../db.js";
+
+export const Course = sequelize.define("Course", {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  nombre: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  descripcion: {
+    type: DataTypes.STRING,
+  },
 });
+
