@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 import { sequelize } from "../db.js";
 
 export const Course = sequelize.define("courses", {
-  id: {
+  /* id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
@@ -31,5 +31,7 @@ export const Course = sequelize.define("courses", {
   image: {
     type: DataTypes.STRING,
     allowNull: false,
-  },
+  }, */
+
+  
 });
