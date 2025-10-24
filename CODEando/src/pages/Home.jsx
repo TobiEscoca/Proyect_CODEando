@@ -1,7 +1,7 @@
+
 import React from "react";
 import Hero from "../ui/Hero";
 import Catalog from "../ui/Catalog";
-import courses from "../data/courses";
 
 const Home = () => {
   return (
@@ -12,7 +12,8 @@ const Home = () => {
         backgroundImageUrl="/public/study_session.jpg"
         heightClass="h-[80vh]"
       />
-      <Catalog courses={courses} />
+      {/* Ya no pasamos courses, Catalog hace fetch directo */}
+      <Catalog />
     </>
   );
 };
