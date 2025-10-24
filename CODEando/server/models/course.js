@@ -1,56 +1,82 @@
 /* import { DataTypes } from "sequelize";
 import { sequelize } from "../db.js";
 
-export const Course = sequelize.define("courses", { */
-  /* id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-    allowNull: false,
+export const Course = sequelize.define(
+  "Course",
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    category: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    available: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+    },
+    descripcion: {
+      type: DataTypes.TEXT,
+    },
+    price: {
+      type: DataTypes.INTEGER,
+    },
+    image: {
+      type: DataTypes.STRING(500),
+    },
   },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  category: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  available: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-  },
-  description: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-  price: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  image: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  }, */
+  {
+    tableName: "cursos", // 🔹 importante: usa tu tabla existente
+    timestamps: false, // 🔹 desactiva createdAt / updatedAt si no existen
+  }
+);
 
-  
-/* }); */
+ */
 
 import { DataTypes } from "sequelize";
 import { sequelize } from "../db.js";
 
-export const Course = sequelize.define("Course", {
-  id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
+export const Course = sequelize.define(
+  "Course",
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    category: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    available: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+    },
+    descripcion: {
+      type: DataTypes.TEXT,
+      field: "decripcion", // 👈 nombre real en la base de datos
+    },
+    price: {
+      type: DataTypes.INTEGER,
+    },
+    image: {
+      type: DataTypes.STRING(500),
+    },
   },
-  nombre: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  descripcion: {
-    type: DataTypes.STRING,
-  },
-});
-
+  {
+    tableName: "cursos", // 👈 asegúrate de que este sea el nombre correcto de la tabla
+    timestamps: false,
+  }
+);
