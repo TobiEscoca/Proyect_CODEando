@@ -11,7 +11,7 @@ const FiltCourses = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/courses`) // traemos todos los cursos
+    fetch(`http://localhost:4000/courses`) // traemos todos los cursos
       .then((res) => res.json())
       .then((data) => {
         // Filtramos por categoría y mapeamos descripción

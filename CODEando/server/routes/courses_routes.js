@@ -1,11 +1,76 @@
-
 import { Router } from "express";
 import { Course } from "../models/course.js";
 import { User } from "../models/user.js";
-import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+
 const router = Router();
 const JWT_SECRET = "mi_super_secreto";
+
+// Middleware para roles
+const checkRole = (allowedRoles) => (req, res, next) => {
+  const token = req.headers.authorization?.split(" ")[1];
+  if (!token) return res.status(401).json({ error: "No autorizado" });
+
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    if (!allowedRoles.includes(decoded.id_rol)) return res.status(403).json({ error: "Acceso prohibido" });
+    req.user = decoded;
+    next();
+  } catch {
+    return res.status(401).json({ error: "Token inválido" });
+  }
+};
+
+// Registro de usuarios
+router.post("/register", async (req, res) => {
+  try {
+    const { email, contraseña, nombre } = req.body;
+    if (!email || !contraseña) return res.status(400).json({ error: "Faltan campos obligatorios" });
+
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) return res.status(409).json({ error: "El email ya está registrado" });
+
+    const newUser = await User.create({ email, nombre, contraseña, id_rol: 1 });
+    res.status(201).json({ message: "Usuario registrado", user: { id: newUser.id, email, id_rol: 1 } });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Login
+router.post("/login", async (req, res) => {
+  try {
+    const { email, contraseña } = req.body;
+    const user = await User.findOne({ where: { email } });
+    if (!user || user.contraseña !== contraseña) return res.status(401).json({ error: "Credenciales inválidas" });
+
+    const payload = { id: user.id, email: user.email, id_rol: user.id_rol };
+    const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "1d" });
+
+    res.json({ message: "Login exitoso", token });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Crear profesor (solo superadmin)
+router.post("/crear-profesor", checkRole([3]), async (req, res) => {
+  try {
+    const { email, nombre, contraseña } = req.body;
+    if (!email || !nombre || !contraseña) return res.status(400).json({ error: "Faltan campos obligatorios" });
+
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) return res.status(409).json({ error: "El email ya está registrado" });
+
+    const newUser = await User.create({ email, nombre, contraseña, id_rol: 2 });
+    res.status(201).json({ message: "Profesor creado", user: { id: newUser.id, email, nombre, id_rol: 2 } });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// CRUD de cursos usando "decripcion"
+
 // Obtener todos los cursos
 router.get("/", async (req, res) => {
   try {
@@ -16,7 +81,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Obtener un curso por ID
+// Obtener curso por ID
 router.get("/:id", async (req, res) => {
   try {
     const course = await Course.findByPk(req.params.id);
@@ -27,27 +92,28 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// Crear curso
-router.post("/", async (req, res) => {
+// Crear curso (admin o superadmin)
+router.post("/", checkRole([2, 3]), async (req, res) => {
   try {
-    const { nombre, descripcion } = req.body;
-    const newCourse = await Course.create({ nombre, descripcion });
+    const { name, category, descripcion, price, image, available } = req.body;
+    if (!name || !category || !descripcion) return res.status(400).json({ error: "Faltan campos obligatorios" });
+
+    const newCourse = await Course.create({ name, category, descripcion, price, image, available });
     res.status(201).json(newCourse);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-// Actualizar curso
-router.put("/:id", async (req, res) => {
+router.put("/:id", checkRole([2, 3]), async (req, res) => {
   try {
     const { id } = req.params;
-    const { nombre, descripcion } = req.body;
+    const { name, category, descripcion, price, image, available } = req.body;
+
     const course = await Course.findByPk(id);
     if (!course) return res.status(404).json({ error: "Curso no encontrado" });
 
-    course.nombre = nombre;
-    course.descripcion = descripcion;
+    Object.assign(course, { name, category, descripcion, price, image, available });
     await course.save();
     res.json(course);
   } catch (error) {
@@ -55,90 +121,16 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// Eliminar curso
-router.delete("/:id", async (req, res) => {
+
+// Eliminar curso (admin o superadmin)
+router.delete("/:id", checkRole([2, 3]), async (req, res) => {
   try {
-    const { id } = req.params;
-    const deleted = await Course.destroy({ where: { id } });
+    const deleted = await Course.destroy({ where: { id: req.params.id } });
     if (!deleted) return res.status(404).json({ error: "Curso no encontrado" });
     res.json({ message: "Curso eliminado correctamente" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
-
-
-/* router.post("/register", async (req, res) => {
-  try {
-    const { email, contraseña } = req.body;
-
-    // Rol por defecto (usuario)
-    const id_rol = 1;
-
-    // Validar campos
-    if (!email || !contraseña) {
-      return res.status(400).json({ error: "Faltan campos obligatorios" });
-    }
-
-    // Verificar si el usuario ya existe
-    const existingUser = await User.findOne({ where: { email } });
-    if (existingUser) {
-      return res.status(409).json({ error: "El email ya está registrado" });
-    }
-
-    // Crear el usuario
-
-    const newUser = await User.create({ email, contraseña, id_rol });
-
-    res.status(201).json({
-      message: "Usuario registrado con éxito",
-      user: {
-        id: newUser.id,
-        email: newUser.email,
-        contraseña: newUser.contraseña,
-        id_rol: newUser.id_rol,
-      },
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Error al registrar usuario" });
-  }
-}); */
-
-router.post("/register", async (req, res) => {
-  try {
-    const { email, contraseña } = req.body;
-    const id_rol = 1;
-    if (!email || !contraseña) return res.status(400).json({ error: "Faltan campos obligatorios" });
-
-    const existingUser = await User.findOne({ where: { email } });
-    if (existingUser) return res.status(409).json({ error: "El email ya está registrado" });
-
-    // ⚠️ Guardando contraseña en texto plano (NO HACER EN PRODUCCIÓN)
-    const newUser = await User.create({ email, contraseña, id_rol });
-    res.status(201).json({ message: "Usuario registrado con éxito", user: { id: newUser.id, email: newUser.email, id_rol: newUser.id_rol } });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Error al registrar usuario" });
-  }
-});
-router.post("/login", async (req, res) => {
-  try {
-    const { email, contraseña } = req.body;
-    const user = await User.findOne({ where: { email } });
-    if (!user) return res.status(401).json({ error: "Credenciales inválidas" });
-
-    // comparación directa (texto plano)
-    if (contraseña !== user.contraseña) return res.status(401).json({ error: "Credenciales inválidas" });
-
-    const payload = { id: user.id, email: user.email, id_rol: user.id_rol };
-    const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1d' });
-    res.json({ message: "Inicio de sesión exitoso", token });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Error interno del servidor" });
-  }
-});
-
 
 export default router;

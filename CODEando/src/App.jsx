@@ -14,7 +14,8 @@ import Terminos from "./pages/Terminos";
 import Privacidad from "./pages/Privacidad";
 import Soporte from "./pages/Soporte";
 import FiltCourses from "./pages/FiltCourses";
-
+import AdminCrearCurso from "./pages/AdminCrearCurso.jsx";
+import CrearProfesor from "./pages/CrearProfesor";
 const App = () => {
   return (
     <div className="min-h-screen flex flex-col">
@@ -33,6 +34,9 @@ const App = () => {
           <Route path="/soporte" element={<Soporte />} />
           <Route path="/InfoCurso/:courseId" element={<CursoInfo />} />
           <Route path="/category/:category" element={<FiltCourses />} />
+          <Route path="/superadmin/crear-profesor" element={<CrearProfesor />} />
+
+          <Route path="/admin/crear-curso" element={<AdminCrearCurso />} />
         </Routes>
       </main>
       <Footer />

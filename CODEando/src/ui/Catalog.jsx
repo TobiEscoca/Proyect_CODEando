@@ -13,7 +13,7 @@ const Catalog = ({ title = "Catálogo de cursos" }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3000/courses") // URL de tu backend
+    fetch("http://localhost:4000/courses") // URL de tu backend
       .then((res) => res.json())
       .then((data) => {
         // Mapeamos para que el frontend tenga la propiedad "description"

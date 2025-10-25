@@ -14,7 +14,7 @@ const CursoInfo = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/courses/${courseId}`)
+    fetch(`http://localhost:4000/courses/${courseId}`)
       .then((res) => res.json())
       .then((data) => {
         // mapeamos descripcion → description
