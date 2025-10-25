@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+/* import { createContext, useState, useEffect } from "react";
 import jwtDecode from "jwt-decode";
 
 export const AuthContext = createContext();
@@ -21,11 +21,11 @@ export function AuthProvider({ children }) {
     setLoading(false);
   }, []);
 
-  const login = async (username, password) => {
-    const res = await fetch("http://localhost:4000/auth/login", {
+  const login = async (email, password) => {
+    const res = await fetch("http://localhost:4000/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ email, contraseña, id_rol }),
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.message || "Error al iniciar sesión");
@@ -55,3 +55,4 @@ export function AuthProvider({ children }) {
     </AuthContext.Provider>
   );
 }
+ */

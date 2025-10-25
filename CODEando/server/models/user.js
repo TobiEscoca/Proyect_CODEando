@@ -1,24 +1,31 @@
+
 import { DataTypes } from "sequelize";
 import { sequelize } from "../db.js";
 
-export const User = sequelize.define("users", {
+
+export const User = sequelize.define("usuarios", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
-    allowNull: false,
-  },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
   },
   email: {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
   },
-  password: {
+  contraseña: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-});
+  id_rol: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+
+}
+,
+  {
+    tableName: "usuarios", // 👈 asegúrate de que este sea el nombre correcto de la tabla
+    timestamps: false,
+  });
