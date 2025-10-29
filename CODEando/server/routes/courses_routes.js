@@ -367,10 +367,11 @@ router.get("/:id/alumnos", checkRole([2, 3]), async (req, res) => {
         return res.status(403).json({ error: "No sos profesor de este curso" });
     }
 
+    // Los profesores ven TODOS los alumnos del curso, no solo los que se inscribieron cuando él era el profesor
+    // Esto permite que si un profesor se asigna después, pueda ver a todos los alumnos
     const rows = await Inscripcion.findAll({
       where: {
         curso_id: cursoId,
-        profesor_id: req.user.id_rol === 3 ? undefined : req.user.id,
       },
       order: [["inscripto_en", "DESC"]],
     });
