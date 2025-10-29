@@ -5,6 +5,7 @@ import { useAuth } from "../context/AuthContext";
 
 export default function Nav() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [creacionDropdownOpen, setCreacionDropdownOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { isAuth, user, logout } = useAuth();
 
@@ -39,12 +40,19 @@ export default function Nav() {
             >
               Categorías
               <svg
-                className={`w-4 h-4 transition-transform ${dropdownOpen ? "rotate-180" : ""}`}
+                className={`w-4 h-4 transition-transform ${
+                  dropdownOpen ? "rotate-180" : ""
+                }`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
               </svg>
             </button>
 
@@ -85,13 +93,22 @@ export default function Nav() {
             )}
           </div>
 
-          <NavLink to="/nosotros" className="no-underline text-white font-semibold text-base hover:text-yellow-400">
+          <NavLink
+            to="/nosotros"
+            className="no-underline text-white font-semibold text-base hover:text-yellow-400"
+          >
             Nosotros
           </NavLink>
-          <NavLink to="/ustedes" className="no-underline text-white font-semibold text-base hover:text-yellow-400">
+          <NavLink
+            to="/ustedes"
+            className="no-underline text-white font-semibold text-base hover:text-yellow-400"
+          >
             Ustedes
           </NavLink>
-          <NavLink to="/ayuda" className="no-underline text-white font-semibold text-base hover:text-yellow-400">
+          <NavLink
+            to="/ayuda"
+            className="no-underline text-white font-semibold text-base hover:text-yellow-400"
+          >
             Ayuda
           </NavLink>
 
@@ -106,12 +123,53 @@ export default function Nav() {
           )}
 
           {isAuth && puedeCrearCurso && (
-            <NavLink
-              to="/admin/crear-curso"
-              className="no-underline text-yellow-400 font-semibold text-base hover:text-yellow-300"
-            >
-              Crear curso
-            </NavLink>
+            <div className="relative">
+              <button
+                onClick={() => setCreacionDropdownOpen((v) => !v)}
+                className="flex items-center gap-1 text-yellow-400 font-semibold text-base hover:text-yellow-300 focus:outline-none cursor-pointer"
+              >
+                Creación
+                <svg
+                  className={`w-4 h-4 transition-transform ${
+                    creacionDropdownOpen ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+
+              {creacionDropdownOpen && (
+                <div
+                  className="absolute left-0 mt-2 w-40 rounded-md bg-gray-800 shadow-lg z-20"
+                  onMouseLeave={() => setCreacionDropdownOpen(false)}
+                >
+                  <NavLink
+                    to="/admin/crear-curso"
+                    className="block px-4 py-2 text-white hover:bg-gray-700"
+                    onClick={() => setCreacionDropdownOpen(false)}
+                  >
+                    Crear curso
+                  </NavLink>
+                  {isSuperadmin && (
+                    <NavLink
+                      to="/superadmin/crear-profesor"
+                      className="block px-4 py-2 text-white hover:bg-gray-700"
+                      onClick={() => setCreacionDropdownOpen(false)}
+                    >
+                      Crear profesor
+                    </NavLink>
+                  )}
+                </div>
+              )}
+            </div>
           )}
 
           {/* SOLO PROFESOR (NO superadmin) */}
@@ -127,16 +185,16 @@ export default function Nav() {
           {isAuth && isSuperadmin && (
             <>
               <NavLink
-                to="/superadmin/crear-profesor"
-                className="no-underline text-yellow-400 font-semibold text-base hover:text-yellow-300"
-              >
-                Crear profesor
-              </NavLink>
-              <NavLink
                 to="/admin/profesores"
                 className="no-underline text-yellow-400 font-semibold text-base hover:text-yellow-300"
               >
                 Profesores
+              </NavLink>
+              <NavLink
+                to="/admin/gestioncursos"
+                className="no-underline text-yellow-400 font-semibold text-base hover:text-yellow-300"
+              >
+                Gestión cursos
               </NavLink>
             </>
           )}
@@ -181,12 +239,24 @@ export default function Nav() {
           onClick={() => setMobileOpen((v) => !v)}
         >
           {mobileOpen ? (
-            <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg
+              className="w-6 h-6"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <line x1="18" y1="6" x2="6" y2="18" />
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           ) : (
-            <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg
+              className="w-6 h-6"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <line x1="3" y1="12" x2="21" y2="12" />
               <line x1="3" y1="6" x2="21" y2="6" />
               <line x1="3" y1="18" x2="21" y2="18" />
@@ -199,26 +269,46 @@ export default function Nav() {
       {mobileOpen && (
         <div className="md:hidden bg-gray-900 border-t border-gray-800 px-4 py-3">
           <div className="flex flex-col gap-2">
-            <NavLink to="/ustedes" className="text-white font-semibold no-underline py-2" onClick={() => setMobileOpen(false)}>
+            <NavLink
+              to="/ustedes"
+              className="text-white font-semibold no-underline py-2"
+              onClick={() => setMobileOpen(false)}
+            >
               Ustedes
             </NavLink>
-            <NavLink to="/nosotros" className="text-white font-semibold no-underline py-2" onClick={() => setMobileOpen(false)}>
+            <NavLink
+              to="/nosotros"
+              className="text-white font-semibold no-underline py-2"
+              onClick={() => setMobileOpen(false)}
+            >
               Nosotros
             </NavLink>
-            <NavLink to="/ayuda" className="text-white font-semibold no-underline py-2" onClick={() => setMobileOpen(false)}>
+            <NavLink
+              to="/ayuda"
+              className="text-white font-semibold no-underline py-2"
+              onClick={() => setMobileOpen(false)}
+            >
               Ayuda
             </NavLink>
 
             <div className="h-px bg-gray-800 my-2" />
 
             {isAuth && isAlumno && (
-              <NavLink to="/mis-cursos" className="text-yellow-400 font-semibold py-2 no-underline" onClick={() => setMobileOpen(false)}>
+              <NavLink
+                to="/mis-cursos"
+                className="text-yellow-400 font-semibold py-2 no-underline"
+                onClick={() => setMobileOpen(false)}
+              >
                 Mis cursos
               </NavLink>
             )}
 
             {isAuth && puedeCrearCurso && (
-              <NavLink to="/admin/crear-curso" className="text-yellow-400 font-semibold py-2 no-underline" onClick={() => setMobileOpen(false)}>
+              <NavLink
+                to="/admin/crear-curso"
+                className="text-yellow-400 font-semibold py-2 no-underline"
+                onClick={() => setMobileOpen(false)}
+              >
                 Crear cursos
               </NavLink>
             )}
@@ -236,10 +326,18 @@ export default function Nav() {
 
             {isAuth && isSuperadmin && (
               <>
-                <NavLink to="/superadmin/crear-profesor" className="text-yellow-400 font-semibold py-2 no-underline" onClick={() => setMobileOpen(false)}>
+                <NavLink
+                  to="/superadmin/crear-profesor"
+                  className="text-yellow-400 font-semibold py-2 no-underline"
+                  onClick={() => setMobileOpen(false)}
+                >
                   Crear profesor
                 </NavLink>
-                <NavLink to="/admin/profesores" className="text-yellow-400 font-semibold py-2 no-underline" onClick={() => setMobileOpen(false)}>
+                <NavLink
+                  to="/admin/profesores"
+                  className="text-yellow-400 font-semibold py-2 no-underline"
+                  onClick={() => setMobileOpen(false)}
+                >
                   Profesores
                 </NavLink>
               </>
@@ -249,14 +347,21 @@ export default function Nav() {
 
             {isAuth ? (
               <button
-                onClick={() => { logout(); setMobileOpen(false); }}
+                onClick={() => {
+                  logout();
+                  setMobileOpen(false);
+                }}
                 className="text-white border border-red-400 rounded px-3 py-2"
               >
                 Cerrar sesión
               </button>
             ) : (
               <>
-                <NavLink to="/login" className="text-white no-underline py-2" onClick={() => setMobileOpen(false)}>
+                <NavLink
+                  to="/login"
+                  className="text-white no-underline py-2"
+                  onClick={() => setMobileOpen(false)}
+                >
                   Iniciar Sesión
                 </NavLink>
                 <NavLink

@@ -16,10 +16,11 @@ import Soporte from "./pages/Soporte";
 import FiltCourses from "./pages/FiltCourses";
 import AdminCrearCurso from "./pages/AdminCrearCurso.jsx";
 import CrearProfesor from "./pages/CrearProfesor";
-import MisCursos from "./pages/MisCursos.jsx"
-import ProfePanel from "./pages/ProfePanel.jsx"
-import AdminProfesores from "./pages/AdminProfesores.jsx"
-import { RequireRole } from "./routes/guards";  // <-- importa guard
+import MisCursos from "./pages/MisCursos.jsx";
+import ProfePanel from "./pages/ProfePanel.jsx";
+import AdminProfesores from "./pages/AdminProfesores.jsx";
+import AdminGestionCursos from "./pages/AdminGestionCursos.jsx";
+import { RequireRole } from "./routes/guards"; // <-- importa guard
 
 const App = () => {
   return (
@@ -51,7 +52,7 @@ const App = () => {
 
           {/* PROFESOR (2) y SUPERADMIN (3) */}
           <Route
-            path="/admin/crear-curso"       // si preferís /profesor/crear-curso, cambialo aquí y en el Nav
+            path="/admin/crear-curso" // si preferís /profesor/crear-curso, cambialo aquí y en el Nav
             element={
               <RequireRole roles={[2, 3]}>
                 <AdminCrearCurso />
@@ -81,6 +82,14 @@ const App = () => {
             element={
               <RequireRole roles={[3]}>
                 <AdminProfesores />
+              </RequireRole>
+            }
+          />
+          <Route
+            path="/admin/gestioncursos"
+            element={
+              <RequireRole roles={[3]}>
+                <AdminGestionCursos />
               </RequireRole>
             }
           />
