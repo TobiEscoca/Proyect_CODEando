@@ -4,6 +4,9 @@ import cors from "cors"; // 🔹 importar cors
 import { PORT } from "./config.js";
 import { sequelize } from "../db.js";
 import coursesRoutes from "../routes/courses_routes.js";
+import "../models/user.js";
+import "../models/profesorCurso.js";
+import "../models/inscripcion.js";
 import "../models/course.js";
 
 const app = express();

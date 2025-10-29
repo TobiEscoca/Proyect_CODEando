@@ -1,6 +1,8 @@
 import { Router } from "express";
 import { Course } from "../models/course.js";
 import { User } from "../models/user.js";
+import { ProfesorCurso } from "../models/profesorCurso.js";
+import { Inscripcion } from "../models/inscripcion.js";
 import jwt from "jsonwebtoken";
 
 const router = Router();
@@ -130,6 +132,214 @@ router.delete("/:id", checkRole([2, 3]), async (req, res) => {
     res.json({ message: "Curso eliminado correctamente" });
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+});
+router.post("/:id/asignar-profesor", checkRole([2,3]), async (req, res) => {
+  try {
+    const cursoId = Number(req.params.id);
+    const profeId = req.user.id_rol === 2 ? req.user.id : (req.body.profesor_id ?? req.user.id);
+
+    // Si definiste UNIQUE(curso_id) entonces habrá un solo profe por curso.
+    await ProfesorCurso.upsert({
+      profesor_id: profeId,
+      curso_id: cursoId,
+      activo: true,
+    });
+
+    res.json({ ok: true, curso_id: cursoId, profesor_id: profeId });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+/**
+ * ALUMNO (id_rol=1) se inscribe.
+ * Congelamos el profesor activo al momento de la inscripción.
+ */
+router.post("/:id/inscribirme", checkRole([1]), async (req, res) => {
+  try {
+    const cursoId = Number(req.params.id);
+
+    // profesor activo del curso (si hay)
+    const profe = await ProfesorCurso.findOne({
+      where: { curso_id: cursoId, activo: true },
+      attributes: ["profesor_id"],
+    });
+    const profesorId = profe?.profesor_id ?? null;
+
+    // unique (usuario_id, curso_id) evita duplicados
+    await Inscripcion.create({
+      usuario_id: req.user.id,
+      curso_id: cursoId,
+      profesor_id: profesorId,
+      estado: "activa",
+    });
+
+    res.json({ ok: true, curso_id: cursoId, profesor_id: profesorId });
+  } catch (error) {
+    if (error.name === "SequelizeUniqueConstraintError") {
+      return res.status(409).json({ error: "Ya estás inscripto a este curso" });
+    }
+    res.status(400).json({ error: error.message });
+  }
+});
+
+/**
+ * Mis cursos (muestra email del profesor si lo hubo)
+ * Podrías moverlo a /users_routes si prefieres, pero lo dejo aquí por simplicidad.
+ */
+/**
+ * Cursos que doy (profesor / superadmin)
+ */
+router.get("/me/cursos-dictados", checkRole([2,3]), async (req, res) => {
+  try {
+    const rows = await ProfesorCurso.findAll({
+      where: { profesor_id: req.user.id, activo: true },
+      order: [["asignado_en", "DESC"]],
+    });
+
+    // enriquecer con nombre del curso
+    const out = await Promise.all(rows.map(async (pc) => {
+      const c = await Course.findByPk(pc.curso_id, { attributes: ["id","name"] });
+      return { id: c?.id, name: c?.name, asignado_en: pc.asignado_en };
+    }));
+
+    res.json(out);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * Mis alumnos (profesor / superadmin)
+ */
+router.get("/me/alumnos", checkRole([2,3]), async (req, res) => {
+  try {
+    const rows = await Inscripcion.findAll({
+      where: { profesor_id: req.user.id },
+      order: [["inscripto_en", "DESC"]],
+    });
+
+    const out = await Promise.all(rows.map(async (r) => {
+      const alumno = await User.findByPk(r.usuario_id, { attributes: ["email"] });
+      const curso  = await Course.findByPk(r.curso_id,  { attributes: ["name"] });
+      return {
+        curso: curso?.name ?? null,
+        alumno_email: alumno?.email ?? null,
+        estado: r.estado,
+        inscripto_en: r.inscripto_en,
+      };
+    }));
+
+    res.json(out);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.get("/me/inscripciones", checkRole([1,2,3]), async (req, res) => {
+  try {
+    const rows = await Inscripcion.findAll({
+      where: { usuario_id: req.user.id },
+      order: [["inscripto_en", "DESC"]],
+    });
+
+    const out = await Promise.all(rows.map(async (r) => {
+      const curso  = await Course.findByPk(r.curso_id, { attributes: ["id","name","image","category","price"] });
+      const profe  = r.profesor_id ? await User.findByPk(r.profesor_id, { attributes: ["email"] }) : null;
+      return {
+        id: r.id,
+        estado: r.estado,
+        inscripto_en: r.inscripto_en,
+        curso: curso ? { id: curso.id, name: curso.name, image: curso.image, category: curso.category, price: curso.price } : null,
+        profesor_email: profe?.email || null,
+      };
+    }));
+
+    res.json(out);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// DELETE /courses/:id/desinscribirme  (alumno borra su inscripción a ese curso)
+router.delete("/:id/desinscribirme", checkRole([1]), async (req, res) => {
+  try {
+    const cursoId = Number(req.params.id);
+    const deleted = await Inscripcion.destroy({
+      where: { usuario_id: req.user.id, curso_id: cursoId },
+    });
+    if (!deleted) return res.status(404).json({ error: "No estabas inscripto a este curso" });
+    res.json({ ok: true });
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+});
+
+// GET /courses/me/cursos-dictados  (profe/superadmin)
+router.get("/me/cursos-dictados", checkRole([2,3]), async (req, res) => {
+  try {
+    const rows = await ProfesorCurso.findAll({
+      where: { profesor_id: req.user.id, activo: true },
+      order: [["asignado_en", "DESC"]],
+    });
+
+    const out = await Promise.all(rows.map(async (pc) => {
+      const c = await Course.findByPk(pc.curso_id, { attributes: ["id","name","image","category"] });
+      return { curso: c, asignado_en: pc.asignado_en };
+    }));
+
+    res.json(out);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// GET /courses/:id/alumnos  (profe del curso o superadmin)
+router.get("/:id/alumnos", checkRole([2,3]), async (req, res) => {
+  try {
+    const cursoId = Number(req.params.id);
+
+    // seguridad: si es profe, debe estar asignado a ese curso
+    if (req.user.id_rol === 2) {
+      const pc = await ProfesorCurso.findOne({ where: { profesor_id: req.user.id, curso_id: cursoId, activo: true } });
+      if (!pc) return res.status(403).json({ error: "No sos profesor de este curso" });
+    }
+
+    const rows = await Inscripcion.findAll({
+      where: { curso_id: cursoId, profesor_id: req.user.id_rol === 3 ? undefined : req.user.id },
+      order: [["inscripto_en", "DESC"]],
+    });
+
+    const out = await Promise.all(rows.map(async (r) => {
+      const alumno = await User.findByPk(r.usuario_id, { attributes: ["email"] });
+      return { alumno_email: alumno?.email ?? null, estado: r.estado, inscripto_en: r.inscripto_en };
+    }));
+
+    res.json(out);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
+// GET /admin/profesores  (superadmin)
+router.get("/admin/profesores", checkRole([3]), async (_req, res) => {
+  try {
+    const profesores = await User.findAll({ where: { id_rol: 2 }, attributes: ["id","email"] });
+
+    const out = await Promise.all(profesores.map(async (p) => {
+      const pcs = await ProfesorCurso.findAll({ where: { profesor_id: p.id, activo: true } });
+      const cursos = await Promise.all(pcs.map(async (pc) => {
+        const c = await Course.findByPk(pc.curso_id, { attributes: ["id", "name"] });
+        return c;
+      }));
+      return { id: p.id, email: p.email, cursos };
+    }));
+
+    res.json(out);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
   }
 });
 
