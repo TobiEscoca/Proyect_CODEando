@@ -8,7 +8,7 @@ export default function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { isAuth, user, logout } = useAuth();
 
-  // casteo a número por si el payload viene como string
+  // castea a número por si el payload viene como string
   const role = Number(user?.id_rol);
   const isAlumno = role === 1;
   const isProfesor = role === 2;
@@ -219,7 +219,7 @@ export default function Nav() {
 
             {isAuth && puedeCrearCurso && (
               <NavLink to="/admin/crear-curso" className="text-yellow-400 font-semibold py-2 no-underline" onClick={() => setMobileOpen(false)}>
-                Crear curso
+                Crear cursos
               </NavLink>
             )}
 
