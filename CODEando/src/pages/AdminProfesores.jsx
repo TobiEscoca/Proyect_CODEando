@@ -20,7 +20,6 @@ export default function AdminProfesores() {
       console.log("Profesores fetched:", d);
       console.log("Full response:", JSON.stringify(d, null, 2));
 
-      // Check if it's an array or an object with an error
       if (Array.isArray(d)) {
         setRows(d);
       } else if (d.error) {

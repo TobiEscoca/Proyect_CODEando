@@ -20,7 +20,7 @@ import MisCursos from "./pages/MisCursos.jsx";
 import ProfePanel from "./pages/ProfePanel.jsx";
 import AdminProfesores from "./pages/AdminProfesores.jsx";
 import AdminGestionCursos from "./pages/AdminGestionCursos.jsx";
-import { RequireRole } from "./routes/guards"; // <-- importa guard
+import { RequireRole } from "./routes/guards";
 
 const App = () => {
   return (
@@ -52,7 +52,7 @@ const App = () => {
 
           {/* PROFESOR (2) y SUPERADMIN (3) */}
           <Route
-            path="/admin/crear-curso" // si preferís /profesor/crear-curso, cambialo aquí y en el Nav
+            path="/admin/crear-curso"
             element={
               <RequireRole roles={[2, 3]}>
                 <AdminCrearCurso />

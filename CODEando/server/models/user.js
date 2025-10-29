@@ -24,7 +24,7 @@ export const User = sequelize.define(
     },
   },
   {
-    tableName: "usuarios", // 👈 asegúrate de que este sea el nombre correcto de la tabla
+    tableName: "usuarios",
     timestamps: false,
   }
 );

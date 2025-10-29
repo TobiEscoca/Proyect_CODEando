@@ -1,4 +1,3 @@
-
 import { DataTypes } from "sequelize";
 import { sequelize } from "../db.js";
 
@@ -25,7 +24,7 @@ export const Course = sequelize.define(
     },
     descripcion: {
       type: DataTypes.TEXT,
-      field: "decripcion", // 👈 nombre real en la base de datos
+      field: "decripcion",
     },
     price: {
       type: DataTypes.INTEGER,
@@ -35,7 +34,7 @@ export const Course = sequelize.define(
     },
   },
   {
-    tableName: "cursos", // 👈 asegúrate de que este sea el nombre correcto de la tabla
+    tableName: "cursos",
     timestamps: false,
   }
 );

@@ -1,12 +1,41 @@
-# React + Vite
+# CODEando
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Proyecto fullstack (React + Node) usado para el Trabajo Práctico. Contiene una aplicación cliente (Vite + React) y un servidor (Node/Express). Este README explica cómo instalar dependencias, configurar y ejecutar ambas partes.
 
-Currently, two official plugins are available:
+La parte de estilos de este proyecto fue realizada con Tailwind CSS.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Estructura principal
 
-## Expanding the ESLint configuration
+- `/` (esta carpeta `CODEando`) — frontend + scripts de desarrollo.
+- `/server` — código del servidor Node (entrada en `server/src/index.js`).
+- Otros archivos: `package.json` (root), `server/package.json`, etc.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Requisitos
+
+- Node.js (recomendado >= 16; probado en Node 22)
+- npm (o yarn)
+- Si usas base de datos: MySQL / Postgres según configuración del proyecto
+
+## Instalación (dependencias)
+
+1. Instalar dependencias del frontend/raíz:
+
+```bash
+cd CODEando
+npm install
+```
+
+## Instalar dependencias del servidor
+
+- cd CODEando/server
+- npm install
+
+## Iniciar servidor
+
+- cd CODEando/server
+- node src/index.js
+
+## Iniciar el frontend
+
+- cd CODEando/server
+- npm run dev

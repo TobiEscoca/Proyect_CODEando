@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext"; // ⬅️ importa el contexto
+import { useAuth } from "../context/AuthContext";
 
 const API = "http://localhost:4000";
 
 const formatPrice = (value) =>
-  new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS" }).format(value);
+  new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS" }).format(
+    value
+  );
 
 const CursoInfo = () => {
   const { courseId } = useParams();
@@ -14,7 +16,7 @@ const CursoInfo = () => {
   const [msg, setMsg] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const { isAuth, user, authFetch } = useAuth(); // ⬅️ estado de sesión/rol
+  const { isAuth, user, authFetch } = useAuth(); // estado de sesión/rol
   const isUser = user?.id_rol === 1;
   const isProfesorOrSuper = user?.id_rol === 2 || user?.id_rol === 3;
 
@@ -23,7 +25,10 @@ const CursoInfo = () => {
     fetch(`${API}/courses/${courseId}`)
       .then((res) => res.json())
       .then((data) => {
-        const mapped = { ...data, description: data.descripcion || data.decripcion || "" };
+        const mapped = {
+          ...data,
+          description: data.descripcion || data.decripcion || "",
+        };
         setCourse(mapped);
       })
       .catch((err) => console.error("Error al cargar el curso:", err))
@@ -32,9 +37,12 @@ const CursoInfo = () => {
 
   const inscribirme = async () => {
     if (!isAuth) return setMsg("⚠️ Iniciá sesión para inscribirte.");
-    setBusy(true); setMsg("");
+    setBusy(true);
+    setMsg("");
     try {
-      const res = await authFetch(`${API}/courses/${courseId}/inscribirme`, { method: "POST" });
+      const res = await authFetch(`${API}/courses/${courseId}/inscribirme`, {
+        method: "POST",
+      });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Error al inscribirse");
       setMsg("✅ Inscripción realizada.");
@@ -47,9 +55,13 @@ const CursoInfo = () => {
 
   const asignarme = async () => {
     if (!isAuth) return setMsg("⚠️ Iniciá sesión.");
-    setBusy(true); setMsg("");
+    setBusy(true);
+    setMsg("");
     try {
-      const res = await authFetch(`${API}/courses/${courseId}/asignar-profesor`, { method: "POST" });
+      const res = await authFetch(
+        `${API}/courses/${courseId}/asignar-profesor`,
+        { method: "POST" }
+      );
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Error al asignarte");
       setMsg("✅ Te asignaste como profesor del curso.");
@@ -60,17 +72,27 @@ const CursoInfo = () => {
     }
   };
 
-  if (loading) return <p className="text-center text-white py-16">Cargando curso...</p>;
-  if (!course) return <p className="text-center text-white py-16">Curso no encontrado</p>;
+  if (loading)
+    return <p className="text-center text-white py-16">Cargando curso...</p>;
+  if (!course)
+    return <p className="text-center text-white py-16">Curso no encontrado</p>;
 
   return (
     <section className="w-full py-16 bg-gray-950 text-gray-100">
       <div className="max-w-4xl mx-auto px-6">
         <h2 className="text-3xl font-bold text-white mb-4">{course.name}</h2>
-        <h4 className="text-sm text-yellow-400 font-semibold mb-4 uppercase">{course.category}</h4>
-        <img src={course.image} alt={course.name} className="w-full h-64 object-cover rounded-lg mb-6" />
+        <h4 className="text-sm text-yellow-400 font-semibold mb-4 uppercase">
+          {course.category}
+        </h4>
+        <img
+          src={course.image}
+          alt={course.name}
+          className="w-full h-64 object-cover rounded-lg mb-6"
+        />
         <p className="text-gray-200 mb-4">{course.description}</p>
-        <p className="text-lg font-bold text-yellow-400 mb-6">Precio: {formatPrice(course.price)}</p>
+        <p className="text-lg font-bold text-yellow-400 mb-6">
+          Precio: {formatPrice(course.price)}
+        </p>
 
         <div className="flex items-center gap-3 mb-4">
           <Link

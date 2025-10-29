@@ -478,13 +478,13 @@ router.delete("/users/:id", checkRole([3]), async (req, res) => {
         .status(403)
         .json({ error: "Solo se pueden eliminar profesores" });
 
-    // Delete all profesor-curso relationships
+    // Elimina toda relacion entre profesor-curso
     await ProfesorCurso.destroy({ where: { profesor_id: id } });
 
     // Delete all inscriptions where this user is the professor snapshot
     await Inscripcion.destroy({ where: { profesor_id: id } });
 
-    // Finally delete the user
+    // Se elimina el usuario
     await user.destroy();
 
     res.json({ message: "Usuario eliminado correctamente" });
@@ -493,14 +493,14 @@ router.delete("/users/:id", checkRole([3]), async (req, res) => {
   }
 });
 
-// GET /admin/cursos  (superadmin - get all courses with details)
+// GET /admin/cursos  (superadmin - lista cursos con profes y estudiantes)
 router.get("/admin/cursos", checkRole([3]), async (_req, res) => {
   try {
     const courses = await Course.findAll();
 
     const out = await Promise.all(
       courses.map(async (course) => {
-        // Get professors for this course
+        // obtiene profesores para este curso
         const pcs = await ProfesorCurso.findAll({
           where: { curso_id: course.id, activo: true },
           attributes: ["profesor_id", "asignado_en"],
@@ -517,7 +517,7 @@ router.get("/admin/cursos", checkRole([3]), async (_req, res) => {
           })
         );
 
-        // Get students for this course
+        // obtiene estudiantes para este curso
         const inscripciones = await Inscripcion.findAll({
           where: { curso_id: course.id },
           order: [["inscripto_en", "DESC"]],

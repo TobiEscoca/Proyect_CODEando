@@ -13,20 +13,21 @@ export default function ProfePanel() {
     (async () => {
       const r = await authFetch(`${API}/courses/me/cursos-dictados`);
       const d = await r.json();
-      console.log("cursos-dictados ->", d); // 👈 DEBUG
+      console.log("cursos-dictados ->", d); // DEBUG
       const arr = Array.isArray(d) ? d : [];
 
-      // Normalizar: aceptar {curso:{...}} ó plano {id,name,...}
-      const norm = arr.map((x) => {
-        if (x?.curso?.id) return x;
-        const c = {
-          id: x?.id ?? x?.curso_id ?? null,
-          name: x?.name ?? x?.curso_name ?? null,
-          image: x?.image ?? null,
-          category: x?.category ?? null
-        };
-        return { curso: c, asignado_en: x?.asignado_en ?? x?.desde ?? null };
-      }).filter(x => x.curso?.id); // eliminar entradas sin id
+      const norm = arr
+        .map((x) => {
+          if (x?.curso?.id) return x;
+          const c = {
+            id: x?.id ?? x?.curso_id ?? null,
+            name: x?.name ?? x?.curso_name ?? null,
+            image: x?.image ?? null,
+            category: x?.category ?? null,
+          };
+          return { curso: c, asignado_en: x?.asignado_en ?? x?.desde ?? null };
+        })
+        .filter((x) => x.curso?.id); // eliminar entradas sin id
       setCursos(norm);
     })();
   }, []);
@@ -37,7 +38,7 @@ export default function ProfePanel() {
     if (alumnos[cursoId]) return;
     const r = await authFetch(`${API}/courses/${cursoId}/alumnos`);
     const d = await r.json();
-    console.log(`alumnos curso ${cursoId} ->`, d); // 👈 DEBUG
+    console.log(`alumnos curso ${cursoId} ->`, d); // DEBUG
     setAlumnos((prev) => ({ ...prev, [cursoId]: Array.isArray(d) ? d : [] }));
   };
 
@@ -51,9 +52,13 @@ export default function ProfePanel() {
           <li key={curso.id} className="border border-gray-700 rounded p-3">
             <div className="flex items-center justify-between">
               <div>
-                <div className="font-semibold">{curso.name || `Curso #${curso.id}`}</div>
+                <div className="font-semibold">
+                  {curso.name || `Curso #${curso.id}`}
+                </div>
                 {asignado_en && (
-                  <div className="text-xs opacity-70">Desde: {new Date(asignado_en).toLocaleString()}</div>
+                  <div className="text-xs opacity-70">
+                    Desde: {new Date(asignado_en).toLocaleString()}
+                  </div>
                 )}
               </div>
               <button
@@ -84,7 +89,9 @@ export default function ProfePanel() {
                         <tr key={i} className="border-t border-gray-700">
                           <td className="p-2">{a.alumno_email}</td>
                           <td className="p-2">{a.estado}</td>
-                          <td className="p-2">{new Date(a.inscripto_en).toLocaleString()}</td>
+                          <td className="p-2">
+                            {new Date(a.inscripto_en).toLocaleString()}
+                          </td>
                         </tr>
                       ))}
                     </tbody>
